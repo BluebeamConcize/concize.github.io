@@ -42,13 +42,19 @@
         }
 
         .logo {
-            font-size: 28px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #1f2937;
             text-decoration: none;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+            display: block;
         }
 
         .nav-links {
@@ -459,13 +465,17 @@
         }
 
         .footer-brand {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             margin-bottom: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-brand img {
+            height: 40px;
+            width: auto;
         }
 
         .footer-description {
@@ -546,7 +556,10 @@
     <nav>
         <div class="container">
             <div class="nav-content">
-                <a href="index.html" class="logo">Concize</a>
+                <a href="index.html" class="logo">
+                    <img src="assets/concize-logo.png" alt="Concize logo">
+                    <span>Concize</span>
+                </a>
                 <div class="nav-links">
                     <div class="dropdown">
                         <a href="project-management.html">Product ▾</a>
@@ -679,7 +692,10 @@
         <div class="container">
             <div class="footer-content">
                 <div>
-                    <div class="footer-brand">Concize</div>
+                    <div class="footer-brand">
+                        <img src="assets/concize-logo.png" alt="Concize logo">
+                        <span>Concize</span>
+                    </div>
                     <p class="footer-description">The unified workspace for marketing teams. Manage projects, track time, and schedule social media — all in one place.</p>
                 </div>
                 <div class="footer-links">

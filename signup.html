@@ -41,10 +41,19 @@
         }
 
         .logo {
-            font-size: 28px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
             font-weight: 700;
             color: white;
             text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            display: block;
         }
 
         .back-link {
@@ -312,7 +321,10 @@
     <nav>
         <div class="container">
             <div class="nav-content">
-                <a href="index.html" class="logo">Concize</a>
+                <a href="index.html" class="logo">
+                    <img src="assets/concize-logo.png" alt="Concize logo">
+                    <span>Concize</span>
+                </a>
                 <a href="index.html" class="back-link">← Back to Home</a>
             </div>
         </div>
