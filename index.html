@@ -252,25 +252,94 @@
         }
 
         .hero-mockup {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.15);
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            backdrop-filter: blur(12px);
         }
 
         .mockup-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 8px;
-            height: 120px;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.25), rgba(99, 102, 241, 0.1));
+            border-radius: 20px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #1f2937;
+            border: 1px solid rgba(99, 102, 241, 0.12);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 18px 30px rgba(79, 70, 229, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .mockup-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mockup-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 40px rgba(79, 70, 229, 0.2);
+        }
+
+        .mockup-card:hover::after {
+            opacity: 1;
+        }
+
+        .mockup-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-icon {
+            height: 56px;
+            width: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 24px;
             color: white;
-            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.35);
+        }
+
+        .card-info h4 {
+            font-size: 18px;
+            margin-bottom: 4px;
+            color: #111827;
+        }
+
+        .card-info p {
+            margin: 0;
             font-size: 14px;
+            color: #6b7280;
+        }
+
+        .card-badge {
+            margin-left: auto;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4338ca;
+            background: rgba(99, 102, 241, 0.15);
+        }
+
+        .card-badge.success {
+            color: #0f766e;
+            background: rgba(16, 185, 129, 0.15);
         }
 
         /* Problem Section */
@@ -655,12 +724,54 @@
             <div class="hero-visual">
                 <div class="hero-image">
                     <div class="hero-mockup">
-                        <div class="mockup-card">📋 Projects</div>
-                        <div class="mockup-card">⏱️ Time Tracking</div>
-                        <div class="mockup-card">📱 Social Posts</div>
-                        <div class="mockup-card">📊 Analytics</div>
-                        <div class="mockup-card">👥 Team Collab</div>
-                        <div class="mockup-card">📅 Calendar</div>
+                        <div class="mockup-card">
+                            <div class="card-icon">📋</div>
+                            <div class="card-info">
+                                <h4>Projects</h4>
+                                <p>Roadmaps & briefs</p>
+                            </div>
+                            <span class="card-badge">Boards</span>
+                        </div>
+                        <div class="mockup-card">
+                            <div class="card-icon">⏱️</div>
+                            <div class="card-info">
+                                <h4>Time Tracking</h4>
+                                <p>Billable precision</p>
+                            </div>
+                            <span class="card-badge">Timers</span>
+                        </div>
+                        <div class="mockup-card">
+                            <div class="card-icon">📱</div>
+                            <div class="card-info">
+                                <h4>Social Posts</h4>
+                                <p>Multi-channel queue</p>
+                            </div>
+                            <span class="card-badge">Publishing</span>
+                        </div>
+                        <div class="mockup-card">
+                            <div class="card-icon">📊</div>
+                            <div class="card-info">
+                                <h4>Analytics</h4>
+                                <p>Live performance</p>
+                            </div>
+                            <span class="card-badge success">+18%</span>
+                        </div>
+                        <div class="mockup-card">
+                            <div class="card-icon">👥</div>
+                            <div class="card-info">
+                                <h4>Team Collab</h4>
+                                <p>Approvals & chat</p>
+                            </div>
+                            <span class="card-badge">Pods</span>
+                        </div>
+                        <div class="mockup-card">
+                            <div class="card-icon">📅</div>
+                            <div class="card-info">
+                                <h4>Calendar</h4>
+                                <p>Drag & drop slots</p>
+                            </div>
+                            <span class="card-badge">Schedule</span>
+                        </div>
                     </div>
                 </div>
             </div>
