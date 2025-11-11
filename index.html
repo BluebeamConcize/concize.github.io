@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concize - Run Your Marketing Ops From One Workspace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            padding: 12px;
+            min-width: 220px;
+            margin-top: 8px;
+            z-index: 1000;
+        }
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 0;
+            right: 0;
+            height: 8px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 120%;
+            height: 150%;
+            background: radial-gradient(circle at 50% 50%, rgba(102, 126, 234, 0.08), transparent 70%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .launch-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8edff 100%);
+            color: #667eea;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .launch-badge::before {
+            content: '🚀';
+            font-size: 16px;
+        }
+
+        h1 {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #1f2937 0%, #4b5563 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subheadline {
+            font-size: 22px;
+            color: #6b7280;
+            max-width: 720px;
+            margin: 0 auto 48px;
+            line-height: 1.6;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.1);
+        }
+
+        .trust-note {
+            margin-top: 24px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            margin-top: 80px;
+            position: relative;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-image {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .hero-mockup {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .mockup-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Problem Section */
+        .problem {
+            background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%);
+            padding: 120px 0;
+        }
+
+        .problem-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            text-align: center;
+            color: #667eea;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+
+        .problem-text {
+            font-size: 19px;
+            color: #4b5563;
+            margin-bottom: 28px;
+            line-height: 1.8;
+        }
+
+        .problem-highlight {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 32px;
+            border-left: 4px solid #f59e0b;
+            margin: 48px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
+        }
+
+        .problem-highlight strong {
+            color: #92400e;
+            font-size: 20px;
+        }
+
+        .problem-list {
+            margin: 32px 0;
+            padding-left: 0;
+            list-style: none;
+            display: grid;
+            gap: 20px;
+        }
+
+        .problem-list li {
+            padding: 20px 20px 20px 60px;
+            background: white;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .problem-list li:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .problem-list li::before {
+            content: '✕';
+            position: absolute;
+            left: 24px;
+            top: 20px;
+            font-size: 20px;
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .problem-list strong {
+            color: #1f2937;
+            font-weight: 700;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 120px 0;
+            background: white;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 48px;
+            margin-top: 80px;
+        }
+
+        .benefit-card {
+            padding: 48px 40px;
+            background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+            border-radius: 20px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .benefit-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+            border-color: #667eea;
+        }
+
+        .benefit-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 24px;
+        }
+
+        .benefit-card h3 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .benefit-card p {
+            font-size: 17px;
+            color: #6b7280;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .benefit-stat {
+            display: inline-block;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8edff 100%);
+            color: #667eea;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Social Proof Section */
+        .social-proof {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .social-proof h2 {
+            color: white;
+        }
+
+        .testimonial {
+            max-width: 800px;
+            margin: 48px auto;
+            font-size: 24px;
+            font-style: italic;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .testimonial-author {
+            margin-top: 24px;
+            font-size: 16px;
+            opacity: 0.9;
+            font-style: normal;
+        }
+
+        .security-badge {
+            margin-top: 48px;
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            padding: 120px 0;
+            text-align: center;
+            background: white;
+        }
+
+        .final-cta h2 {
+            font-size: 52px;
+            margin-bottom: 24px;
+        }
+
+        .final-cta p {
+            font-size: 20px;
+            color: #6b7280;
+            max-width: 700px;
+            margin: 0 auto 48px;
+            line-height: 1.7;
+        }
+
+        .cta-note {
+            margin-top: 24px;
+            font-size: 15px;
+            color: #9ca3af;
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 60px 0 32px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-description {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 40px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 60px 0 80px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-mockup {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">Concize</a>
+                <div class="nav-links">
+                    <div class="dropdown">
+                        <a href="project-management.html">Product ▾</a>
+                        <div class="dropdown-content">
+                            <a href="project-management.html">Project Management</a>
+                            <a href="time-management.html">Time Management</a>
+                            <a href="publishing-calendar.html">Publishing & Calendar</a>
+                        </div>
+                    </div>
+                    <a href="about.html">About</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-cta">
+                    <a href="signup.html" class="btn btn-primary">Get Early Access</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="launch-badge">Launching Soon — Beta Access Now Open</div>
+                <h1>Run your marketing ops<br>from one workspace</h1>
+                <p class="subheadline">Stop switching between project boards, time trackers, and social schedulers. Concize unifies your workflow so teams ship campaigns faster.</p>
+                <div class="cta-group">
+                    <a href="signup.html" class="btn btn-primary">Sign Up for Beta</a>
+                    <a href="contact.html" class="btn btn-secondary">Contact Sales</a>
+                </div>
+                <p class="trust-note">Limited beta spots available — free during early access</p>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-image">
+                    <div class="hero-mockup">
+                        <div class="mockup-card">📋 Projects</div>
+                        <div class="mockup-card">⏱️ Time Tracking</div>
+                        <div class="mockup-card">📱 Social Posts</div>
+                        <div class="mockup-card">📊 Analytics</div>
+                        <div class="mockup-card">👥 Team Collab</div>
+                        <div class="mockup-card">📅 Calendar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <div class="problem-content">
+                <div class="section-label">The Problem</div>
+                <h2>The Current Reality</h2>
+                
+                <p class="problem-text">Your team opens Asana for tasks. Toggl for time tracking. Buffer for social posts. Slack for updates. Google Sheets for reporting.</p>
+                
+                <p class="problem-text">By Wednesday, you've already lost hours just syncing information between tools. Deadlines slip because someone didn't see the update in the right app. Campaign data lives in five places, making client reports a nightmare.</p>
+
+                <div class="problem-highlight">
+                    <strong>The real cost?</strong> Teams waste 5–7 hours weekly on tool-switching and manual updates. Marketing managers spend more time managing tools than managing campaigns.
+                </div>
+
+                <h3 style="font-size: 32px; margin: 48px 0 24px; font-weight: 700;">Why Existing Solutions Fall Short</h3>
+
+                <ul class="problem-list">
+                    <li><strong>Too many tools:</strong> Each solves one problem but creates integration headaches</li>
+                    <li><strong>Disconnected data:</strong> Your project timeline doesn't talk to your content calendar</li>
+                    <li><strong>Slow handoffs:</strong> Teams lose momentum waiting for updates across platforms</li>
+                    <li><strong>Reporting chaos:</strong> Pulling insights means exporting from multiple dashboards</li>
+                </ul>
+
+                <p class="problem-text" style="text-align: center; font-size: 22px; font-weight: 600; margin-top: 48px;">You need less software, not more subscriptions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-label">How Concize Helps</div>
+            <h2>Three Ways We Solve This</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Plan campaigns and projects in one connected workspace</h3>
+                    <p>From initial brief to final delivery, manage every marketing project on unified task boards and timelines. Your content calendar sits next to project deadlines. Time tracking happens where the work happens. No more context-switching.</p>
+                    <span class="benefit-stat">30% faster campaign turnaround</span>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">📱</div>
+                    <h3>Schedule across all channels without leaving your workspace</h3>
+                    <p>Post to Instagram, LinkedIn, Twitter, and Facebook directly from your project dashboard. Preview content, collaborate on copy, and publish — all while tracking which campaign it belongs to.</p>
+                    <span class="benefit-stat">One workspace. Multiple channels.</span>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">📊</div>
+                    <h3>See what's working with real-time analytics</h3>
+                    <p>Know instantly which campaigns are on track, where time is going, and what content performs best. Built-in dashboards show productivity metrics alongside marketing results — no spreadsheet assembly required.</p>
+                    <span class="benefit-stat">Real-time insights, zero exports</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="social-proof">
+        <div class="container">
+            <h2>Trusted by Marketing Teams Who Move Fast</h2>
+            <div class="testimonial">
+                "Concize helped us manage 3 campaigns, track deadlines, and report results — all without opening five different apps."
+                <div class="testimonial-author">— Beta User, Digital Marketing Agency</div>
+            </div>
+            <div class="security-badge">
+                🔒 Built for security: GDPR-ready infrastructure with ISO-grade data protection
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta" id="signup">
+        <div class="container">
+            <h2>Stop managing tools.<br>Start shipping campaigns.</h2>
+            <p>Concize brings project management, time tracking, and social scheduling into one workspace built for marketing teams who need to move fast.</p>
+            <div class="cta-group">
+                <a href="signup.html" class="btn btn-primary">Get Early Access</a>
+            </div>
+            <p class="cta-note">Limited beta spots available — free during early access. No credit card required.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-brand">Concize</div>
+                    <p class="footer-description">The unified workspace for marketing teams. Manage projects, track time, and schedule social media — all in one place.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="project-management.html">Project Management</a></li>
+                        <li><a href="time-management.html">Time Management</a></li>
+                        <li><a href="publishing-calendar.html">Publishing & Calendar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="project-management.html">Product Tour</a></li>
+                        <li><a href="signup.html">Get Early Access</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2025 Concize. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

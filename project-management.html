@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management - Concize</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container-wide {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            padding: 12px;
+            min-width: 220px;
+            margin-top: 8px;
+            z-index: 1000;
+        }
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 0;
+            right: 0;
+            height: 8px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #4b5563;
+            transition: all 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background: #f3f4f6;
+            color: #667eea;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="2" height="2" fill="white" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .product-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Value Props Section */
+        .value-props {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .section-label {
+            text-align: center;
+            color: #667eea;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 64px;
+            letter-spacing: -0.01em;
+            color: #1f2937;
+            text-align: center;
+        }
+
+        .props-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .prop-card {
+            text-align: center;
+            padding: 40px 32px;
+            background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .prop-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.1);
+            border-color: #667eea;
+        }
+
+        .prop-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .prop-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .prop-card p {
+            color: #6b7280;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #fafbfc;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 48px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 48px 40px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+            border-color: #667eea;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        /* Templates Section */
+        .templates {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .template-card {
+            background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 32px 28px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .template-card:hover {
+            border-color: #667eea;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
+        }
+
+        .template-icon {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+
+        .template-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .template-card p {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Integration Section */
+        .integration {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8edff 100%);
+        }
+
+        .integration-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .integration h2 {
+            margin-bottom: 24px;
+        }
+
+        .integration p {
+            font-size: 19px;
+            color: #4b5563;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .integration-logos {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 48px;
+        }
+
+        .integration-logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .integration-logo:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .btn-white {
+            background: white;
+            color: #667eea;
+            padding: 16px 40px;
+            font-size: 17px;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 60px 0 32px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-description {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .props-grid,
+            .features-grid,
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .integration-logos {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">Concize</a>
+                <div class="nav-links">
+                    <div class="dropdown">
+                        <a href="project-management.html">Product ▾</a>
+                        <div class="dropdown-content">
+                            <a href="project-management.html">Project Management</a>
+                            <a href="time-management.html">Time Management</a>
+                            <a href="publishing-calendar.html">Publishing & Calendar</a>
+                        </div>
+                    </div>
+                    <a href="about.html">About</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div>
+                    <a href="signup.html" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="product-badge">Project Management</div>
+                <h1>Prepare Your Enterprise<br>For Anything</h1>
+                <p class="hero-subtitle">Plan, prepare, collaborate and track all your projects with Concize's Project Management feature. Keep teams on track with everything they need, all in one place.</p>
+                <a href="#learn-more" class="btn btn-white">Explore Features</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Props -->
+    <section class="value-props">
+        <div class="container">
+            <div class="section-label">Why Choose Concize</div>
+            <h2>Transform the way your teams work</h2>
+            
+            <div class="props-grid">
+                <div class="prop-card">
+                    <div class="prop-icon">🎯</div>
+                    <h3>Achieve Quarterly Goals</h3>
+                    <p>Get full visibility on company objectives, both minute details and the big picture, to keep your enterprise always moving forward.</p>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-icon">🔗</div>
+                    <h3>Eliminate Silos</h3>
+                    <p>Avoid potential roadblocks from missing information by keeping all project communication in one centralized place.</p>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-icon">💪</div>
+                    <h3>Empower Your Teams</h3>
+                    <p>Streamline processes, creating a single source of truth for all your projects with enterprise collaboration software.</p>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-icon">🚀</div>
+                    <h3>Turbocharge Results</h3>
+                    <p>Create a centralized project hub to share information, collaborate and monitor progress easily across your organization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="learn-more">
+        <div class="container-wide">
+            <div class="section-label">Powerful Features</div>
+            <h2>Enterprise project management resources</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📢</div>
+                    <h3>Power Your Marketing</h3>
+                    <p>Eliminate team silos, get full visibility at every level and shorten your approval process for all your projects.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Deliver Products Faster</h3>
+                    <p>Centralize your company's product vision, manage resources more wisely and accelerate delivery timelines.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Improve Remote Work</h3>
+                    <p>Manage projects with precision even when geographically distant with Concize collaboration software.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Optimize Operations</h3>
+                    <p>Align goals across teams, plan projects, manage resources and increase visibility for key metrics.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Protect Your Data</h3>
+                    <p>Keep your project data private and secure with enterprise-level security and specialized encryptions.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Get Expert Support</h3>
+                    <p>Our expert consultants are on hand to help you with all your enterprise project management needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Section -->
+    <section class="templates">
+        <div class="container">
+            <div class="section-label">Best-Practice Templates</div>
+            <h2>Build on our trusted templates</h2>
+            
+            <div class="templates-grid">
+                <div class="template-card">
+                    <div class="template-icon">📅</div>
+                    <h4>Schedule Your Projects</h4>
+                    <p>Turn projects into actionable items, assign tasks to the right people and visualize due dates with enterprise workflow management.</p>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">🧩</div>
+                    <h4>Clarify Complex Projects</h4>
+                    <p>Break down ambitious projects into manageable phases and bite-sized pieces that your team can deliver.</p>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">🚀</div>
+                    <h4>Launch New Products</h4>
+                    <p>Simplify product launches into phases, assign due dates and assignees, and use timelines to track progress.</p>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">🎯</div>
+                    <h4>Create Your OKRs</h4>
+                    <p>Focus your team's project management to align with overall company objectives and define measurable steps.</p>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">⚡</div>
+                    <h4>Become Fully Agile</h4>
+                    <p>Prioritize a backlog for planning, manage sprints with Kanban boards and use reports to track progress.</p>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">⭐</div>
+                    <h4>Impress Your Customers</h4>
+                    <p>Plan and deliver services with an interactive timeline, track your hours and organize deliverables.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Section -->
+    <section class="integration">
+        <div class="container">
+            <div class="integration-content">
+                <h2>Reduce Digitization Fatigue</h2>
+                <p>We know that switching between apps tends to slow down project progress. Our powerful integrations mean you can get the benefit of Concize without having to leave the tools you're used to.</p>
+                
+                <div class="integration-logos">
+                    <div class="integration-logo">📧</div>
+                    <div class="integration-logo">💬</div>
+                    <div class="integration-logo">📊</div>
+                    <div class="integration-logo">📁</div>
+                    <div class="integration-logo">🔗</div>
+                    <div class="integration-logo">📱</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to transform your project management?</h2>
+            <p>Join enterprise teams using Concize to deliver projects faster and more efficiently.</p>
+            <a href="signup.html" class="btn btn-white">Start Your Free Trial</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-brand">Concize</div>
+                    <p class="footer-description">The unified workspace for marketing teams. Manage projects, track time, and schedule social media — all in one place.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="project-management.html">Project Management</a></li>
+                        <li><a href="time-management.html">Time Management</a></li>
+                        <li><a href="publishing-calendar.html">Publishing & Calendar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="project-management.html">Product Tour</a></li>
+                        <li><a href="signup.html">Get Early Access</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2025 Concize. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

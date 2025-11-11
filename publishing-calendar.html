@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publishing & Calendar - Concize</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            padding: 12px;
+            min-width: 220px;
+            margin-top: 8px;
+            z-index: 1000;
+        }
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 0;
+            right: 0;
+            height: 8px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 100px 0 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="2" height="2" fill="white" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .product-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .btn-white {
+            background: white;
+            color: #667eea;
+            padding: 16px 40px;
+            font-size: 17px;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        /* No Spreadsheets Banner */
+        .banner {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            text-align: center;
+        }
+
+        .banner h2 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #92400e;
+            margin-bottom: 16px;
+        }
+
+        .banner p {
+            font-size: 20px;
+            color: #78350f;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Section Styles */
+        .section-label {
+            text-align: center;
+            color: #667eea;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+            color: #1f2937;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 48px;
+            color: #1f2937;
+            text-align: center;
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .features-intro {
+            max-width: 800px;
+            margin: 0 auto 64px;
+            text-align: center;
+        }
+
+        .features-list {
+            display: grid;
+            gap: 16px;
+            max-width: 700px;
+            margin: 32px auto 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #4b5563;
+        }
+
+        .feature-item::before {
+            content: '✓';
+            color: #667eea;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 48px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 48px 40px;
+            background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+            border-radius: 20px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+            border-color: #667eea;
+        }
+
+        .feature-icon {
+            font-size: 56px;
+            margin-bottom: 24px;
+        }
+
+        .feature-card h4 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            color: #6b7280;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .feature-details {
+            list-style: none;
+            text-align: left;
+            margin-top: 24px;
+        }
+
+        .feature-details li {
+            padding: 8px 0;
+            color: #4b5563;
+            font-size: 15px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .feature-details li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Workflow Section */
+        .workflow {
+            padding: 100px 0;
+            background: #fafbfc;
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .workflow-step {
+            text-align: center;
+            padding: 40px 32px;
+            background: white;
+            border-radius: 16px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .workflow-step:hover {
+            border-color: #667eea;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            margin: 0 auto 20px;
+        }
+
+        .workflow-step h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .workflow-step p {
+            font-size: 15px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* Platforms Section */
+        .platforms {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            max-width: 1000px;
+            margin: 48px auto 0;
+        }
+
+        .platform-card {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8edff 100%);
+            padding: 32px 28px;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .platform-card:hover {
+            border-color: #667eea;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+        }
+
+        .platform-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .platform-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .platform-status {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* Analytics Section */
+        .analytics {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            color: white;
+        }
+
+        .analytics h2,
+        .analytics h3 {
+            color: white;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .analytics-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .analytics-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .analytics-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .analytics-card p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+        }
+
+        /* Resources Section */
+        .resources {
+            padding: 100px 0;
+            background: #fafbfc;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+
+        .resource-image {
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .resource-content {
+            padding: 32px 28px;
+        }
+
+        .resource-type {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #667eea;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .resource-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .resource-card p {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .read-more:hover {
+            gap: 12px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 60px 0 32px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-description {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            h3 {
+                font-size: 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .feature-grid,
+            .workflow-steps,
+            .platform-grid,
+            .analytics-grid,
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">Concize</a>
+                <div class="nav-links">
+                    <div class="dropdown">
+                        <a href="project-management.html">Product ▾</a>
+                        <div class="dropdown-content">
+                            <a href="project-management.html">Project Management</a>
+                            <a href="time-management.html">Time Management</a>
+                            <a href="publishing-calendar.html">Publishing & Calendar</a>
+                        </div>
+                    </div>
+                    <a href="about.html">About</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div>
+                    <a href="signup.html" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="product-badge">Content Calendar & Publisher</div>
+                <h1>Plan, Create, and Publish<br>All in One Place</h1>
+                <p class="hero-subtitle">Schedule and publish your content on multiple social channels without the hassle of logging into each platform separately. Seamless collaboration between your teams.</p>
+                <a href="#learn-more" class="btn btn-white">Explore Features</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner -->
+    <section class="banner">
+        <div class="container">
+            <h2>NO. MORE. SPREADSHEETS.</h2>
+            <p>Now with Concize, you can manage all your social media content — organic posts and ads — from one unified platform.</p>
+        </div>
+    </section>
+
+    <!-- Overview Features -->
+    <section class="features" id="learn-more">
+        <div class="container">
+            <div class="section-label">Platform Overview</div>
+            <h2>Everything You Need in One Dashboard</h2>
+            <div class="features-intro">
+                <p style="font-size: 18px; color: #4b5563; line-height: 1.8;">Get notified every time someone in your team updates or comments on a piece of content, with email, push, Slack, and Microsoft Teams notifications.</p>
+                <div class="features-list">
+                    <div class="feature-item">List View & Calendar View</div>
+                    <div class="feature-item">All Calendars in One Place</div>
+                    <div class="feature-item">Complete Post Overview</div>
+                    <div class="feature-item">Multi-Channel Notifications</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Features Grid -->
+    <section class="features" style="background: #fafbfc; padding-top: 80px;">
+        <div class="container">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h4>Never Run Out of Inspiration</h4>
+                    <p>Concize gives you post ideas based on trending topics, RSS feeds, date-related events and social media best practices.</p>
+                    <ul class="feature-details">
+                        <li>RSS Feeds Integration</li>
+                        <li>Twitter Trends</li>
+                        <li>Events & Holiday Calendar</li>
+                        <li>Social Media Best Practices</li>
+                        <li>Custom Post Ideas</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📁</div>
+                    <h4>Manage All Assets in One Place</h4>
+                    <p>Store, organize and use your assets in a central, intuitive library that keeps everything at your fingertips.</p>
+                    <ul class="feature-details">
+                        <li>Photos, Videos & Notes</li>
+                        <li>Links & Post Templates</li>
+                        <li>Video Slideshows</li>
+                        <li>Organized Asset View</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h4>Craft Posts & Ads Like Experts</h4>
+                    <p>Concize guides you step by step to create outstanding posts and ads with professional tools.</p>
+                    <ul class="feature-details">
+                        <li>Post Ideas & Optimization Tips</li>
+                        <li>Concize Studio</li>
+                        <li>Hashtag Manager</li>
+                        <li>UTM Parameters Generator</li>
+                        <li>Unsplash & Giphy Integration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Section -->
+    <section class="workflow">
+        <div class="container">
+            <div class="section-label">Publishing Workflow</div>
+            <h2>From Creation to Publication</h2>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <h4>Preview Before Publishing</h4>
+                    <p>Automatically generated post and ad previews for you and your team before you hit publish.</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <h4>Team Collaboration</h4>
+                    <p>Collaborative review and approval workflow with end-to-end post and ad history, mockups, and commenting.</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <h4>Schedule Seamlessly</h4>
+                    <p>Plan content ahead of time: just set it and forget it. Concize will publish it for you automatically.</p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <h4>Engage Your Audience</h4>
+                    <p>Respond to messages, comments and reactions of your followers with our community management system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supported Platforms -->
+    <section class="platforms">
+        <div class="container">
+            <div class="section-label">Supported Platforms</div>
+            <h2>Publish Everywhere Your Audience Is</h2>
+            <div class="platform-grid">
+                <div class="platform-card">
+                    <div class="platform-icon">📘</div>
+                    <h4>Facebook</h4>
+                    <p class="platform-status">Automated Publishing</p>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">🐦</div>
+                    <h4>Twitter</h4>
+                    <p class="platform-status">Automated Publishing</p>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">📸</div>
+                    <h4>Instagram</h4>
+                    <p class="platform-status">Automated Publishing</p>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">📌</div>
+                    <h4>Pinterest</h4>
+                    <p class="platform-status">Automated Publishing</p>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">💼</div>
+                    <h4>LinkedIn</h4>
+                    <p class="platform-status">Automated Publishing</p>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">🏢</div>
+                    <h4>Google My Business</h4>
+                    <p class="platform-status">Automated Publishing</p>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">👻</div>
+                    <h4>Snapchat</h4>
+                    <p class="platform-status">Manual Publishing</p>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">🎵</div>
+                    <h4>TikTok</h4>
+                    <p class="platform-status">Manual Publishing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section class="analytics">
+        <div class="container">
+            <div class="section-label" style="color: rgba(255,255,255,0.8);">Performance Tracking</div>
+            <h2>Measure Your Success</h2>
+            <h3 style="font-weight: 400; font-size: 20px; opacity: 0.9;">Track your posts' performance in real time and identify what your audience loves most</h3>
+            
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h4>📊 Comprehensive Metrics</h4>
+                    <p>Account, post and URL metrics to understand your complete social media performance.</p>
+                </div>
+
+                <div class="analytics-card">
+                    <h4>🔍 Data Filtering</h4>
+                    <p>Filter data and compare periods to identify trends and optimize your content strategy.</p>
+                </div>
+
+                <div class="analytics-card">
+                    <h4>📈 Universal Analytics</h4>
+                    <p>Analytics for all posts, not only those published via Concize, giving you the complete picture.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Management -->
+    <section class="features">
+        <div class="container">
+            <div class="section-label">Community Management</div>
+            <h2>Interact With Your Audience</h2>
+            <p style="text-align: center; font-size: 18px; color: #6b7280; max-width: 700px; margin: 0 auto 48px;">A powerfully simple system to respond to messages, comments and reactions across Facebook, Twitter, Instagram, and LinkedIn.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Target the Right Audience</h4>
+                    <p>Reach people that matter to your brand with Facebook Preferred Audience, Audience Restrictions, and advanced targeting for ads.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📣</div>
+                    <h4>Boost Your Posts</h4>
+                    <p>Amplify your best content with post sponsoring and objective-driven Facebook and Instagram ad campaigns.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h4>Unified Inbox</h4>
+                    <p>Manage all interactions from one place, ensuring no message or comment goes unanswered.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources">
+        <div class="container">
+            <div class="section-label">Resources</div>
+            <h2>Stay Prepared With These Resources</h2>
+            
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-image">📝</div>
+                    <div class="resource-content">
+                        <div class="resource-type">Blog</div>
+                        <h4>Social Media Best Practices</h4>

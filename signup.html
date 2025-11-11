@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Concize</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Content */
+        .signup-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+        }
+
+        .signup-container {
+            background: white;
+            border-radius: 24px;
+            padding: 56px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .beta-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .signup-subtitle {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 4px;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: 400;
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .checkbox-group a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 32px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 16px;
+            position: relative;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .social-buttons {
+            display: grid;
+            gap: 12px;
+        }
+
+        .btn-social {
+            width: 100%;
+            padding: 14px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #374151;
+        }
+
+        .btn-social:hover {
+            border-color: #667eea;
+            transform: translateY(-1px);
+        }
+
+        .signin-link {
+            text-align: center;
+            margin-top: 24px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .signin-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signin-link a:hover {
+            text-decoration: underline;
+        }
+
+        .features-list {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .features-list h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .features-list ul {
+            list-style: none;
+        }
+
+        .features-list li {
+            padding: 8px 0;
+            color: #6b7280;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .signup-container {
+                padding: 40px 24px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">Concize</a>
+                <a href="index.html" class="back-link">← Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="signup-wrapper">
+        <div class="signup-container">
+            <div class="signup-header">
+                <div class="beta-badge">🎉 Free Beta Access</div>
+                <h1>Join Concize Today</h1>
+                <p class="signup-subtitle">Get early access to the unified marketing workspace</p>
+            </div>
+
+            <form id="signupForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Work Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="company">Company Name *</label>
+                    <input type="text" id="company" name="company" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="teamSize">Team Size *</label>
+                    <select id="teamSize" name="teamSize" required>
+                        <option value="">Select team size</option>
+                        <option value="1-5">1-5 people</option>
+                        <option value="6-10">6-10 people</option>
+                        <option value="11-25">11-25 people</option>
+                        <option value="26-50">26-50 people</option>
+                        <option value="51-100">51-100 people</option>
+                        <option value="100+">100+ people</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="useCase">What will you use Concize for? (Optional)</label>
+                    <textarea id="useCase" name="useCase" placeholder="Tell us about your team's needs..."></textarea>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the <a href="#terms">Terms of Service</a> and <a href="#privacy">Privacy Policy</a></label>
+                </div>
+
+                <button type="submit" class="btn">Create Account</button>
+
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+
+                <div class="social-buttons">
+                    <button type="button" class="btn-social">
+                        <span>🔷</span> Continue with Google
+                    </button>
+                    <button type="button" class="btn-social">
+                        <span>💼</span> Continue with Microsoft
+                    </button>
+                </div>
+
+                <div class="signin-link">
+                    Already have an account? <a href="#signin">Sign in</a>
+                </div>
+            </form>
+
+            <div class="features-list">
+                <h3>What's included in Beta:</h3>
+                <ul>
+                    <li>Full access to all features</li>
+                    <li>Project Management tools</li>
+                    <li>Time Tracking & Billing</li>
+                    <li>Social Media Publishing</li>
+                    <li>Priority support</li>
+                    <li>No credit card required</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                teamSize: document.getElementById('teamSize').value,
+                useCase: document.getElementById('useCase').value
+            };
+
+            // Here you would normally send data to your backend
+            console.log('Form submitted:', formData);
+            
+            // Show success message (you can customize this)
+            alert('Thank you for signing up! We\'ll send you a confirmation email shortly.');
+            
+            // Redirect to home or dashboard
+            // window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

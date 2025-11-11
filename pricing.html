@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Concize</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            padding: 12px;
+            min-width: 220px;
+            margin-top: 8px;
+            z-index: 1000;
+        }
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 0;
+            right: 0;
+            height: 8px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 100px 0 60px;
+            text-align: center;
+            background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%);
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #1f2937 0%, #4b5563 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            color: #6b7280;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .beta-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #92400e;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        /* Toggle */
+        .billing-toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin: 40px 0;
+        }
+
+        .toggle-label {
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        .toggle-label.active {
+            color: #667eea;
+        }
+
+        /* Pricing Cards */
+        .pricing {
+            padding: 60px 0 100px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 48px 40px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+            border-color: #667eea;
+        }
+
+        .pricing-card.featured {
+            border-color: #667eea;
+            border-width: 3px;
+            background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .plan-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .plan-description {
+            color: #6b7280;
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+
+        .plan-price {
+            font-size: 48px;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .plan-price span {
+            font-size: 20px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .plan-billing {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 32px 0;
+        }
+
+        .plan-features li {
+            padding: 12px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #4b5563;
+            font-size: 15px;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            color: #667eea;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .btn-plan {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 100px 0;
+            background: #fafbfc;
+        }
+
+        h2 {
+            font-size: 42px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 64px;
+            color: #1f2937;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .faq-question {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .faq-answer {
+            color: #6b7280;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            color: white;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .btn-white {
+            background: white;
+            color: #667eea;
+            padding: 16px 40px;
+            font-size: 17px;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 60px 0 32px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-description {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">Concize</a>
+                <div class="nav-links">
+                    <div class="dropdown">
+                        <a href="project-management.html">Product ▾</a>
+                        <div class="dropdown-content">
+                            <a href="project-management.html">Project Management</a>
+                            <a href="time-management.html">Time Management</a>
+                            <a href="publishing-calendar.html">Publishing & Calendar</a>
+                        </div>
+                    </div>
+                    <a href="about.html">About</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div>
+                    <a href="signup.html" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="beta-badge">🎉 Beta Access - Free During Early Access</div>
+            <h1>Simple, Transparent Pricing</h1>
+            <p class="hero-subtitle">Choose the plan that fits your team. All plans include our three unified products: Project Management, Time Tracking, and Social Publishing.</p>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <div class="container">
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="plan-name">Starter</div>
+                    <div class="plan-description">Perfect for small teams getting started</div>
+                    <div class="plan-price">$0<span>/month</span></div>
+                    <div class="plan-billing">During Beta Access</div>
+                    <a href="signup.html" class="btn btn-secondary btn-plan">Start Free</a>
+                    <ul class="plan-features">
+                        <li>Up to 5 team members</li>
+                        <li>Project Management</li>
+                        <li>Basic Time Tracking</li>
+                        <li>3 Social Media Accounts</li>
+                        <li>Email Support</li>
+                        <li>Basic Analytics</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="featured-badge">Most Popular</div>
+                    <div class="plan-name">Professional</div>
+                    <div class="plan-description">For growing teams and agencies</div>
+                    <div class="plan-price">$49<span>/month</span></div>
+                    <div class="plan-billing">Billed monthly • Coming Soon</div>
+                    <a href="signup.html" class="btn btn-primary btn-plan">Join Waitlist</a>
+                    <ul class="plan-features">
+                        <li>Up to 25 team members</li>
+                        <li>Advanced Project Management</li>
+                        <li>Full Time Tracking & Billing</li>
+                        <li>Unlimited Social Accounts</li>
+                        <li>Priority Support</li>
+                        <li>Advanced Analytics</li>
+                        <li>Custom Templates</li>
+                        <li>API Access</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="plan-name">Enterprise</div>
+                    <div class="plan-description">For large organizations with custom needs</div>
+                    <div class="plan-price">Custom</div>
+                    <div class="plan-billing">Contact us for pricing</div>
+                    <a href="contact.html" class="btn btn-secondary btn-plan">Contact Sales</a>
+                    <ul class="plan-features">
+                        <li>Unlimited team members</li>
+                        <li>Everything in Professional</li>
+                        <li>Dedicated Account Manager</li>
+                        <li>Custom Integrations</li>
+                        <li>SLA Guarantee</li>
+                        <li>Advanced Security</li>
+                        <li>Onboarding & Training</li>
+                        <li>Custom Contracts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">Is the beta really free?</div>
+                    <div class="faq-answer">Yes! During our beta phase, all features are completely free. We want early users to help us refine the product before our official launch.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I upgrade or downgrade my plan?</div>
+                    <div class="faq-answer">Absolutely. Once we launch paid plans, you'll be able to change your plan at any time. Changes take effect immediately.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What happens after the beta ends?</div>
+                    <div class="faq-answer">Beta users will receive special pricing and advance notice before any changes. We'll never make changes without giving you plenty of time to decide.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Do you offer refunds?</div>
+                    <div class="faq-answer">Yes. We offer a 30-day money-back guarantee on all paid plans. If you're not satisfied, we'll refund you in full.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I pay annually for a discount?</div>
+                    <div class="faq-answer">Yes! When we launch, annual plans will be available at a 20% discount compared to monthly billing.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to get started?</h2>
+            <p>Join teams already using Concize to manage projects, track time, and publish content.</p>
+            <a href="signup.html" class="btn btn-white">Start Your Free Beta</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-brand">Concize</div>
+                    <p class="footer-description">The unified workspace for marketing teams. Manage projects, track time, and schedule social media — all in one place.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="project-management.html">Project Management</a></li>
+                        <li><a href="time-management.html">Time Management</a></li>
+                        <li><a href="publishing-calendar.html">Publishing & Calendar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="project-management.html">Product Tour</a></li>
+                        <li><a href="signup.html">Get Early Access</a></li>
+                        <li><a href="contact.html">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2025 Concize. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
