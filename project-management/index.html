@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Management - Concize</title>
+    <title>Project Management - Concize</title>
     <style>
         * {
             margin: 0;
@@ -20,6 +20,12 @@
 
         .container {
             max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container-wide {
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -68,6 +74,7 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.2s;
+            position: relative;
         }
 
         .nav-links a:hover {
@@ -109,6 +116,13 @@
             display: block;
             padding: 12px 16px;
             border-radius: 8px;
+            color: #4b5563;
+            transition: all 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background: #f3f4f6;
+            color: #667eea;
         }
 
         .btn {
@@ -134,7 +148,7 @@
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
-        /* Hero */
+        /* Hero Section */
         .hero {
             padding: 100px 0 80px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -188,19 +202,12 @@
             line-height: 1.6;
         }
 
-        .btn-white {
+        /* Value Props Section */
+        .value-props {
+            padding: 100px 0;
             background: white;
-            color: #667eea;
-            padding: 16px 40px;
-            font-size: 17px;
         }
 
-        .btn-white:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Section Styles */
         .section-label {
             text-align: center;
             color: #667eea;
@@ -214,45 +221,74 @@
         h2 {
             font-size: 42px;
             font-weight: 800;
-            margin-bottom: 24px;
+            margin-bottom: 64px;
             letter-spacing: -0.01em;
             color: #1f2937;
             text-align: center;
         }
 
-        /* Benefits Section */
-        .benefits {
-            padding: 100px 0;
-            background: white;
-        }
-
-        .benefits-intro {
-            max-width: 800px;
-            margin: 0 auto 64px;
-            text-align: center;
-            font-size: 19px;
-            color: #4b5563;
-            line-height: 1.8;
-        }
-
-        .benefits-grid {
+        .props-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .prop-card {
+            text-align: center;
+            padding: 40px 32px;
+            background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .prop-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.1);
+            border-color: #667eea;
+        }
+
+        .prop-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .prop-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .prop-card p {
+            color: #6b7280;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #fafbfc;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 48px;
         }
 
-        .benefit-card {
-            text-align: center;
-            padding: 48px 40px;
-            background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+        .feature-card {
+            background: white;
             border-radius: 20px;
+            padding: 48px 40px;
             border: 1px solid #e5e7eb;
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .benefit-card::before {
+        .feature-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -264,156 +300,90 @@
             transition: transform 0.4s ease;
         }
 
-        .benefit-card:hover::before {
+        .feature-card:hover::before {
             transform: scaleX(1);
         }
 
-        .benefit-card:hover {
+        .feature-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
             border-color: #667eea;
         }
 
-        .benefit-icon {
-            width: 80px;
-            height: 80px;
+        .feature-icon {
+            width: 64px;
+            height: 64px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
-            margin: 0 auto 24px;
+            font-size: 32px;
+            margin-bottom: 24px;
         }
 
-        .benefit-card h3 {
+        .feature-card h3 {
             font-size: 24px;
             font-weight: 700;
             margin-bottom: 16px;
             color: #1f2937;
         }
 
-        .benefit-card p {
+        .feature-card p {
             font-size: 16px;
             color: #6b7280;
             line-height: 1.7;
         }
 
-        /* Features Section */
-        .features {
+        /* Templates Section */
+        .templates {
             padding: 100px 0;
-            background: #fafbfc;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .feature-item {
-            display: flex;
-            gap: 24px;
-            padding: 32px;
             background: white;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .template-card {
+            background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+            border: 2px solid #e5e7eb;
             border-radius: 16px;
-            border: 1px solid #e5e7eb;
+            padding: 32px 28px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .feature-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.12);
+        .template-card:hover {
             border-color: #667eea;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
         }
 
-        .feature-icon-sm {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e8edff 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            flex-shrink: 0;
+        .template-icon {
+            font-size: 36px;
+            margin-bottom: 16px;
         }
 
-        .feature-content h4 {
+        .template-card h4 {
             font-size: 20px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             color: #1f2937;
         }
 
-        .feature-content p {
-            font-size: 15px;
+        .template-card p {
             color: #6b7280;
-            line-height: 1.7;
-        }
-
-        /* Screenshot Section */
-        .screenshot {
-            padding: 100px 0;
-            background: white;
-        }
-
-        .screenshot-container {
-            max-width: 1000px;
-            margin: 48px auto 0;
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-            border-radius: 20px;
-            padding: 60px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-        }
-
-        .screenshot-mockup {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            text-align: center;
-        }
-
-        .mockup-display {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 300px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 48px;
-            margin-bottom: 24px;
-        }
-
-        .mockup-features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 24px;
-        }
-
-        .mockup-feature {
-            padding: 16px;
-            background: #f9fafb;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #4b5563;
+            font-size: 15px;
+            line-height: 1.6;
         }
 
         /* Integration Section */
         .integration {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-            color: white;
-        }
-
-        .integration h2 {
-            color: white;
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8edff 100%);
         }
 
         .integration-content {
@@ -422,22 +392,41 @@
             text-align: center;
         }
 
-        .integration-content p {
-            font-size: 20px;
-            opacity: 0.95;
-            line-height: 1.7;
-            margin-bottom: 48px;
+        .integration h2 {
+            margin-bottom: 24px;
         }
 
-        .integration-badge {
-            display: inline-block;
-            padding: 16px 32px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .integration p {
+            font-size: 19px;
+            color: #4b5563;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .integration-logos {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 48px;
+        }
+
+        .integration-logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .integration-logo:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
         }
 
         /* CTA Section */
@@ -457,6 +446,18 @@
             font-size: 20px;
             margin-bottom: 40px;
             opacity: 0.95;
+        }
+
+        .btn-white {
+            background: white;
+            color: #667eea;
+            padding: 16px 40px;
+            font-size: 17px;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
         }
 
         /* Footer */
@@ -536,8 +537,9 @@
                 display: none;
             }
 
-            .benefits-grid,
-            .features-grid {
+            .props-grid,
+            .features-grid,
+            .templates-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -545,8 +547,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .mockup-features {
-                grid-template-columns: 1fr;
+            .integration-logos {
+                gap: 20px;
             }
         }
     </style>
@@ -556,72 +558,71 @@
     <nav>
         <div class="container">
             <div class="nav-content">
-                <a href="index.html" class="logo">
-                    <img src="assets/concize-logo.png" alt="Concize logo">
+                <a href="/" class="logo">
+                    <img src="/assets/concize-logo.png" alt="Concize logo">
                     <span>Concize</span>
                 </a>
                 <div class="nav-links">
                     <div class="dropdown">
-                        <a href="project-management.html">Product ▾</a>
+                        <a href="/project-management/">Product ▾</a>
                         <div class="dropdown-content">
-                            <a href="project-management.html">Project Management</a>
-                            <a href="time-management.html">Time Management</a>
-                            <a href="publishing-calendar.html">Publishing & Calendar</a>
+                            <a href="/project-management/">Project Management</a>
+                            <a href="/time-management/">Time Management</a>
+                            <a href="/publishing-calendar/">Publishing & Calendar</a>
                         </div>
                     </div>
-                    <a href="about.html">About</a>
-                    <a href="pricing.html">Pricing</a>
-                    <a href="contact.html">Contact</a>
+                    <a href="/about/">About</a>
+                    <a href="/pricing/">Pricing</a>
+                    <a href="/contact/">Contact</a>
                 </div>
                 <div>
-                    <a href="signup.html" class="btn btn-primary">Get Started</a>
+                    <a href="/signup/" class="btn btn-primary">Get Started</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="product-badge">Time Management</div>
-                <h1>Track Productivity, Attendance<br>and Billable Hours</h1>
-                <p class="hero-subtitle">A simple time tracker that serves as your comprehensive timesheet. Track time, manage teams, and analyze business processes all in one place.</p>
+                <div class="product-badge">Project Management</div>
+                <h1>Prepare Your Enterprise<br>For Anything</h1>
+                <p class="hero-subtitle">Plan, prepare, collaborate and track all your projects with Concize's Project Management feature. Keep teams on track with everything they need, all in one place.</p>
                 <a href="#learn-more" class="btn btn-white">Explore Features</a>
             </div>
         </div>
     </section>
 
-    <!-- Benefits Section -->
-    <section class="benefits">
+    <!-- Value Props -->
+    <section class="value-props">
         <div class="container">
-            <div class="section-label">Why Time Tracking Matters</div>
-            <h2>Built on Best-Practice Templates</h2>
-            <p class="benefits-intro">Transform how your team manages time with intelligent tracking that improves productivity, visibility, and business insights.</p>
+            <div class="section-label">Why Choose Concize</div>
+            <h2>Transform the way your teams work</h2>
             
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">📈</div>
-                    <h3>Improve Productivity</h3>
-                    <p>Track time you spend on activities, see where your time goes, and improve your time management skills with actionable insights.</p>
+            <div class="props-grid">
+                <div class="prop-card">
+                    <div class="prop-icon">🎯</div>
+                    <h3>Achieve Quarterly Goals</h3>
+                    <p>Get full visibility on company objectives, both minute details and the big picture, to keep your enterprise always moving forward.</p>
                 </div>
 
-                <div class="benefit-card">
-                    <div class="benefit-icon">👥</div>
-                    <h3>Track Team Activity</h3>
-                    <p>Invite your team to track time on activities, see who works on what, manage workload, and send attendance data to payroll.</p>
+                <div class="prop-card">
+                    <div class="prop-icon">🔗</div>
+                    <h3>Eliminate Silos</h3>
+                    <p>Avoid potential roadblocks from missing information by keeping all project communication in one centralized place.</p>
                 </div>
 
-                <div class="benefit-card">
-                    <div class="benefit-icon">💰</div>
-                    <h3>Manage Billable Hours</h3>
-                    <p>Track billable time accurately, generate detailed reports, and ensure no billable minute goes unaccounted for in client projects.</p>
+                <div class="prop-card">
+                    <div class="prop-icon">💪</div>
+                    <h3>Empower Your Teams</h3>
+                    <p>Streamline processes, creating a single source of truth for all your projects with enterprise collaboration software.</p>
                 </div>
 
-                <div class="benefit-card">
-                    <div class="benefit-icon">🔍</div>
-                    <h3>Analyze Business Processes</h3>
-                    <p>Measure time spent on daily activities to detect opportunities for improvements, automation, and better work-life balance.</p>
+                <div class="prop-card">
+                    <div class="prop-icon">🚀</div>
+                    <h3>Turbocharge Results</h3>
+                    <p>Create a centralized project hub to share information, collaborate and monitor progress easily across your organization.</p>
                 </div>
             </div>
         </div>
@@ -629,79 +630,91 @@
 
     <!-- Features Section -->
     <section class="features" id="learn-more">
-        <div class="container">
-            <div class="section-label">Powerful Capabilities</div>
-            <h2>Everything You Need to Track Time</h2>
+        <div class="container-wide">
+            <div class="section-label">Powerful Features</div>
+            <h2>Enterprise project management resources</h2>
             
             <div class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-icon-sm">⏱️</div>
-                    <div class="feature-content">
-                        <h4>One-Click Time Tracking</h4>
-                        <p>Start and stop timers with a single click. Track time spent on tasks, projects, or clients effortlessly.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📢</div>
+                    <h3>Power Your Marketing</h3>
+                    <p>Eliminate team silos, get full visibility at every level and shorten your approval process for all your projects.</p>
                 </div>
 
-                <div class="feature-item">
-                    <div class="feature-icon-sm">📊</div>
-                    <div class="feature-content">
-                        <h4>Detailed Reports</h4>
-                        <p>Generate comprehensive timesheet reports for payroll, billing, and productivity analysis.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Deliver Products Faster</h3>
+                    <p>Centralize your company's product vision, manage resources more wisely and accelerate delivery timelines.</p>
                 </div>
 
-                <div class="feature-item">
-                    <div class="feature-icon-sm">👨‍💼</div>
-                    <div class="feature-content">
-                        <h4>Team Management</h4>
-                        <p>Monitor team activity, track attendance, and manage workload distribution across projects.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Improve Remote Work</h3>
+                    <p>Manage projects with precision even when geographically distant with Concize collaboration software.</p>
                 </div>
 
-                <div class="feature-item">
-                    <div class="feature-icon-sm">💵</div>
-                    <div class="feature-content">
-                        <h4>Billing Integration</h4>
-                        <p>Convert tracked hours into invoices automatically with accurate billable hour calculations.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Optimize Operations</h3>
+                    <p>Align goals across teams, plan projects, manage resources and increase visibility for key metrics.</p>
                 </div>
 
-                <div class="feature-item">
-                    <div class="feature-icon-sm">📅</div>
-                    <div class="feature-content">
-                        <h4>Calendar Integration</h4>
-                        <p>Sync with your calendar to automatically track time from scheduled meetings and events.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Protect Your Data</h3>
+                    <p>Keep your project data private and secure with enterprise-level security and specialized encryptions.</p>
                 </div>
 
-                <div class="feature-item">
-                    <div class="feature-icon-sm">📱</div>
-                    <div class="feature-content">
-                        <h4>Mobile & Desktop</h4>
-                        <p>Track time from anywhere with seamless sync across all your devices.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Get Expert Support</h3>
+                    <p>Our expert consultants are on hand to help you with all your enterprise project management needs.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Screenshot Section -->
-    <section class="screenshot">
+    <!-- Templates Section -->
+    <section class="templates">
         <div class="container">
-            <div class="section-label">Interface Preview</div>
-            <h2>Simple, Intuitive Time Tracker</h2>
+            <div class="section-label">Best-Practice Templates</div>
+            <h2>Build on our trusted templates</h2>
             
-            <div class="screenshot-container">
-                <div class="screenshot-mockup">
-                    <div class="mockup-display">⏱️</div>
-                    <h3 style="font-size: 24px; color: #1f2937; margin-bottom: 8px;">Built for Speed and Simplicity</h3>
-                    <p style="color: #6b7280; margin-bottom: 24px;">Track time without disrupting your workflow</p>
-                    
-                    <div class="mockup-features">
-                        <div class="mockup-feature">Quick Timer</div>
-                        <div class="mockup-feature">Live Analytics</div>
-                        <div class="mockup-feature">Team View</div>
-                    </div>
+            <div class="templates-grid">
+                <div class="template-card">
+                    <div class="template-icon">📅</div>
+                    <h4>Schedule Your Projects</h4>
+                    <p>Turn projects into actionable items, assign tasks to the right people and visualize due dates with enterprise workflow management.</p>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">🧩</div>
+                    <h4>Clarify Complex Projects</h4>
+                    <p>Break down ambitious projects into manageable phases and bite-sized pieces that your team can deliver.</p>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">🚀</div>
+                    <h4>Launch New Products</h4>
+                    <p>Simplify product launches into phases, assign due dates and assignees, and use timelines to track progress.</p>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">🎯</div>
+                    <h4>Create Your OKRs</h4>
+                    <p>Focus your team's project management to align with overall company objectives and define measurable steps.</p>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">⚡</div>
+                    <h4>Become Fully Agile</h4>
+                    <p>Prioritize a backlog for planning, manage sprints with Kanban boards and use reports to track progress.</p>
+                </div>
+
+                <div class="template-card">
+                    <div class="template-icon">⭐</div>
+                    <h4>Impress Your Customers</h4>
+                    <p>Plan and deliver services with an interactive timeline, track your hours and organize deliverables.</p>
                 </div>
             </div>
         </div>
@@ -711,11 +724,16 @@
     <section class="integration">
         <div class="container">
             <div class="integration-content">
-                <div class="section-label" style="color: rgba(255,255,255,0.8);">Seamless Integration</div>
-                <h2>Work Within Your Existing Workflow</h2>
-                <p>We know that switching between apps slows down project progress. Our truly integrated time tracker means you can get all the benefits in just one tab — no context switching required.</p>
-                <div class="integration-badge">
-                    ✓ Integrated with Project Management & Publishing
+                <h2>Reduce Digitization Fatigue</h2>
+                <p>We know that switching between apps tends to slow down project progress. Our powerful integrations mean you can get the benefit of Concize without having to leave the tools you're used to.</p>
+                
+                <div class="integration-logos">
+                    <div class="integration-logo">📧</div>
+                    <div class="integration-logo">💬</div>
+                    <div class="integration-logo">📊</div>
+                    <div class="integration-logo">📁</div>
+                    <div class="integration-logo">🔗</div>
+                    <div class="integration-logo">📱</div>
                 </div>
             </div>
         </div>
@@ -724,9 +742,9 @@
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
-            <h2>Ready to take control of your time?</h2>
-            <p>Join teams using Concize to track time, improve productivity, and deliver better results.</p>
-            <a href="signup.html" class="btn btn-white">Start Tracking Time Free</a>
+            <h2>Ready to transform your project management?</h2>
+            <p>Join enterprise teams using Concize to deliver projects faster and more efficiently.</p>
+            <a href="/signup/" class="btn btn-white">Start Your Free Trial</a>
         </div>
     </section>
 
@@ -736,7 +754,7 @@
             <div class="footer-content">
                 <div>
                     <div class="footer-brand">
-                        <img src="assets/concize-logo.png" alt="Concize logo">
+                        <img src="/assets/concize-logo.png" alt="Concize logo">
                         <span>Concize</span>
                     </div>
                     <p class="footer-description">The unified workspace for marketing teams. Manage projects, track time, and schedule social media — all in one place.</p>
@@ -744,25 +762,25 @@
                 <div class="footer-links">
                     <h4>Product</h4>
                     <ul>
-                        <li><a href="project-management.html">Project Management</a></li>
-                        <li><a href="time-management.html">Time Management</a></li>
-                        <li><a href="publishing-calendar.html">Publishing & Calendar</a></li>
+                        <li><a href="/project-management/">Project Management</a></li>
+                        <li><a href="/time-management/">Time Management</a></li>
+                        <li><a href="/publishing-calendar/">Publishing & Calendar</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
                     <h4>Company</h4>
                     <ul>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/pricing/">Pricing</a></li>
+                        <li><a href="/contact/">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="security-policy.html">Security Policy</a></li>
-                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+                        <li><a href="/security-policy/">Security Policy</a></li>
+                        <li><a href="/terms-of-service/">Terms of Service</a></li>
                     </ul>
                 </div>
             </div>
@@ -773,6 +791,7 @@
     </footer>
 
     <script>
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
